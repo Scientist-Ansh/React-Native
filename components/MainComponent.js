@@ -1,8 +1,7 @@
 import React,{Component}  from 'react';
 import Menu from './MenuComponent';
-import Home from './HomeCompoenent'
-
 import Dishdetail from './DishdetailComponent';
+import Home from './HomeComponent';
 import {View,Platform} from 'react-native';
 import {createStackNavigator,createDrawerNavigator} from 'react-navigation';
 
