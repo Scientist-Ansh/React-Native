@@ -76,7 +76,7 @@ export const COMMENTS =
         id: 9,
         dishId: 1,
         rating: 2,
-        comment: "It's your birthday, we're gonna party!",
+        comment: " we're gonna party!",
         author: "25 Cent",
         date: "2011-12-02T17:57:28.556094Z"
     },
