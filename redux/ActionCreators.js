@@ -26,6 +26,7 @@ export const fetchComments=()=>(dispatch)=>{
 export const commentsFailed = (errmess)=>({
     type:ActionTypes.COMMENTS_FAILED,
     payload:errmess
+    
 });
 
 export const addComments=(comments)=>({
@@ -109,6 +110,7 @@ export const fetchLeaders = ()=>(dispatch)=>{
                 return response.json()
             }
             else{
+                
                 var error = new Error('Error '+response.status+': '+response.statusText);
                 error.response = response;
                 throw error;
@@ -132,6 +134,18 @@ export const leadersLoading=()=>({
 export const addleaders=(leaders)=>({
     type:ActionTypes.ADD_LEADERS,
     payload:leaders
+});
+
+export const postFavorite=(dishId)=>(dispatch)=>{
+    setTimeout(()=>{
+        console.log("calling add favorite");
+        dispatch(addFavorite(dishId));
+    },2000)
+}
+
+export const addFavorite = (dishId) => ({
+    type: ActionTypes.ADD_FAVORITE,
+    payload: dishId
 });
 
 

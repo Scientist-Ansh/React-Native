@@ -5,7 +5,7 @@ export const leaders = (state={
     errMess:null,
     isLoading:true
 },action)=>{
-    switch(ActionTypes.type){
+    switch(action.type){
         case ActionTypes.ADD_LEADERS:
             return{...state,isLoading:false,errMess:null,leaders:action.payload}
         case ActionTypes.LEADERS_FAILED:

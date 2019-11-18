@@ -5,7 +5,7 @@ export const promotions = (state={
     errMess:null,
     isLoading:true
 },action)=>{
-    switch(ActionTypes.type){
+    switch(action.type){
         case ActionTypes.ADD_PROMOS:
             return{...state,isLoading:false,errMess:null,promotions:action.payload}
         case ActionTypes.PROMOS_FAILED:
