@@ -33,11 +33,17 @@ function RenderDish(props) {
             return false;
     }
 
+    const recogniseComment=({moveX,moveY,dx,dy})=>{
+        if(dx>200)
+            return true;
+        else 
+            return false;
+    }
+
     const panResponder=PanResponder.create({
         onStartShouldSetPanResponder:(e,gestureState)=>{
             return true;
         },
-        
         onPanResponderRelease:()=>{
             this.view.rubberBand(1000).then(
                 endState=>console.log(endState.finished ? 'finished' : 'cancelled')
@@ -55,6 +61,9 @@ function RenderDish(props) {
                     ],
                     { cancelable: false }
                 );
+            }
+            if(recogniseComment(gestureState)){
+                props.toggleModal();
             }
             return true;
         }
