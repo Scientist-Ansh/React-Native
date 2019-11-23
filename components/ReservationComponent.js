@@ -3,6 +3,8 @@ import { Text, View, StyleSheet, Picker, Switch, Button, Modal,ScrollView,Alert}
 import { Card } from 'react-native-elements';
 import DatePicker from 'react-native-datepicker';
 import * as Animatable from 'react-native-animatable';
+import {Notifications} from 'expo';
+import * as Permissions from 'expo-permissions';
 
 class Reservation extends Component {
 
@@ -28,7 +30,9 @@ class Reservation extends Component {
         'Number of Guests: '+this.state.guests+'\nSmoking? '+this.state.smoking+'\nDate and Time: '+this.state.date,
         [
             {text: 'Cancel', onPress: () => this.resetForm(), style: 'cancel'},
-            {text: 'OK', onPress: () => this.resetForm()},
+            {text: 'OK', onPress: () => {this.presentLocalNotification(this.state.date);
+                this.resetForm();
+            }},
             ],
             { cancelable: false }
     )
@@ -40,6 +44,33 @@ class Reservation extends Component {
             smoking: false,
             date: '',
         });
+    }
+
+    async obtainNotificationPermission(){
+        let permission = await Permissions.getAsync(Permissions.USER_FACING_NOTIFICATIONS);
+        if (permission.status !== 'granted') {
+            permission = await Permissions.askAsync(Permissions.USER_FACING_NOTIFICATIONS);
+            if (permission.status !== 'granted') {
+                Alert.alert('Permission not granted to show notifications');
+            }
+        }
+        return permission;
+    }
+
+    async presentLocalNotification(date){
+        await this.obtainNotificationPermission();
+        Notifications.presentLocalNotificationAsync({
+            title: 'Your Reservation',
+            body: 'Reservation for '+ date + ' requested',
+            ios: {
+                sound: true
+            },
+            android: {
+                sound: true,
+                vibrate: true,
+                color: '#512DA8'
+            }
+        })
     }
     render() {
         return(
@@ -96,7 +127,7 @@ class Reservation extends Component {
                 </View>
                 <View style={styles.formRow}>
                 <Button
-                    onPress={() => this.handleReservation()}
+                    onPress={() => this.handleReservation()} 
                     title="Reserve"
                     color="#512DA8"
                     accessibilityLabel="Learn more about this purple button"
