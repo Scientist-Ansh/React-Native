@@ -1,1 +1,1 @@
-export const baseUrl = 'https://tiny-dodo-58.localtunnel.me/';
+export const baseUrl = 'https://application-mock-server.localtunnel.me/';
